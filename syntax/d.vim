@@ -1,10 +1,10 @@
 " Vim syntax file
 "
-" Language:     D
-" Maintainer:   Jason Mills<jmills@cs.mun.ca>
+" Language:    D
+" Maintainer:  Jason Mills<jmills@cs.mun.ca>
 " URL:           
-" Last Change:  2002 Aug 15
-" Version: 0.1
+" Last Change: 2002 Aug 16
+" Version:     0.1.1
 "
 " TODO - Highlighting strings, special chars, etc. in comments should be
 " optional.
@@ -36,7 +36,7 @@ syn keyword dConditional     if else switch
 syn keyword dRepeat          while for do
 syn keyword dBoolean         true false
 syn keyword dConstant        null 
-syn keyword dTypedef         class enum struct union alias typedef 
+syn keyword dTypedef         class interface enum struct union alias typedef 
 syn keyword dOperator        new delete assert delegate cast align this super
 syn keyword dType            ushort int uint long ulong float 
 syn keyword dType            void byte ubyte double bit char wchar ucent cent
@@ -44,15 +44,16 @@ syn keyword dType            short complex imaginary extended
 syn keyword dDebug           deprecated unittest 
 syn keyword dExceptions      throw try catch finally 
 syn keyword dBranch          goto break continue 
-syn keyword dScopeDecl       public protected private abstract
+syn keyword dScopeDecl       public protected private
 syn keyword dStatement       version debug return with invariant asm body
 syn keyword dStatement       in out inout synchronized 
-syn keyword dStorageClass    static override final const 
+syn keyword dStorageClass    static override final const abstract
 
 " Labels
 "
-syn match   dUserLabel       "^\s*[_$a-zA-Z][_$a-zA-Z0-9_]*\s*:"he=e-1 contains=dLabel
-syn keyword dLabel           case default
+" We contain dScopDecl so public: private: etc. are not highlighted like labels
+syn match   dUserLabel "^\s*[_$a-zA-Z][_$a-zA-Z0-9_]*\s*:"he=e-1 contains=dLabel,dScopeDecl
+syn keyword dLabel     case default
 
 " Comments
 "
