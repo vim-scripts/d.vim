@@ -3,8 +3,8 @@
 " Language:     D
 " Maintainer:   Jason Mills<jmills@cs.mun.ca>
 " URL:           
-" Last Change:  2003 Nov 21
-" Version:      0.3
+" Last Change:  2003 Nov 24
+" Version:      0.4
 "
 " Options:
 "   d_comment_strings - set to highlight strings and numbers in comments
@@ -43,14 +43,17 @@ syn keyword dBoolean         true false
 syn keyword dConstant        null 
 syn keyword dTypedef         alias typedef 
 syn keyword dStructure       template interface class enum struct union 
-syn keyword dOperator        new delete instance cast align
+syn keyword dOperator        new delete instance cast align is
 syn keyword dOperator        this super 
 if exists("d_hl_operator_overload") 
-  syn keyword dOpOverload      neg com postinc postdec add sub sub_r mul div
-  syn keyword dOpOverload      div_r mod mod_r and or xor shl shl_r shr shr_r
-  syn keyword dOpOverload      ushr ushr_r cat cat_r eq cmp addass subass mulass
-  syn keyword dOpOverload      divass modass andass orass xorass shlass shrass
-  syn keyword dOpOverload      ushrass catass opIndex opCall opSlice opApply
+  syn keyword dOpOverload  opNeg opCom opPostInc opPostDec opAdd opSub opSub_r
+  syn keyword dOpOverload  opMul opDiv opDiv_r opMod opMod_r opAnd opOr opXor
+  syn keyword dOpOverload  opShl opShl_r opShr opShr_r opUShr opUShr_r opCat
+  syn keyword dOpOverload  opCat_r opEquals opEquals opCmp opCmp opCmp opCmp
+  syn keyword dOpOverload  opAddAssign opSubAssign opMulAssign opDivAssign
+  syn keyword dOpOverload  opModAssign opAndAssign opOrAssign opXorAssign
+  syn keyword dOpOverload  opShlAssign opShrAssign opUShrAssign opCatAssign
+  syn keyword dOpOverload  opIndex opCall opSlice
 endif
 syn keyword dType            ushort int uint long ulong float 
 syn keyword dType            void byte ubyte double bit char wchar ucent cent
