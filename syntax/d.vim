@@ -1,10 +1,10 @@
-" Vim syntax file
+" Vim syntax file for the D programming language (version 0.79).
 "
 " Language:     D
 " Maintainer:   Jason Mills<jmills@cs.mun.ca>
 " URL:           
-" Last Change:  2003 Nov 24
-" Version:      0.4
+" Last Change:  2004 Feb 05 
+" Version:      0.5
 "
 " Options:
 "   d_comment_strings - set to highlight strings and numbers in comments
@@ -12,15 +12,16 @@
 "   d_hl_operator_overload - set to highlight D's specially named functions
 "   that when overloaded implement unary and binary operators (e.g. cmp).
 "
-" TODO:
-" - Allow user to set sync minlines
+" Todo:
+"   - Allow user to set sync minlines
 "
-" - Several keywords (namely, in and out) are both storage
-" class and statements, depending on their context. Must use some matching to
-" figure out which and highlight appropriately. For now I have made such
-" keywords statements.
+"   - Several keywords (namely, in and out) are both storage class and
+"   statements, depending on their context. Must use some matching to figure
+"   out which and highlight appropriately. For now I have made such keywords
+"   statements.
 "
-" - Mark contents of the asm statement body as special
+"   - Mark contents of the asm statement body as special
+"
 
 " Quit when a syntax file was already loaded
 if exists("b:current_syntax")
@@ -34,7 +35,6 @@ endif
 
 " Keyword definitions
 " 
-syn keyword dError           operator inline friend sizeof typeof
 syn keyword dExternal        import module extern
 syn keyword dConditional     if else switch 
 syn keyword dBranch          goto break continue 
@@ -43,7 +43,7 @@ syn keyword dBoolean         true false
 syn keyword dConstant        null 
 syn keyword dTypedef         alias typedef 
 syn keyword dStructure       template interface class enum struct union 
-syn keyword dOperator        new delete instance cast align is
+syn keyword dOperator        new delete typeof cast align is
 syn keyword dOperator        this super 
 if exists("d_hl_operator_overload") 
   syn keyword dOpOverload  opNeg opCom opPostInc opPostDec opAdd opSub opSub_r
@@ -67,6 +67,7 @@ syn keyword dStatement       in out inout asm
 syn keyword dStatement       function delegate
 syn keyword dStorageClass    auto static override final const abstract volatile
 syn keyword dStorageClass    synchronized 
+syn keyword dPragma          pragma
 
 
 " Assert is a statement and a module name.
@@ -205,9 +206,8 @@ hi def link dString                  String
 hi def link dHexString               String
 hi def link dCharacter               Character
 hi def link dEscSequence             SpecialChar
-hi def link dSpecialCharError        dError
-hi def link dOctalError              dError
-hi def link dError                   Error
+hi def link dSpecialCharError        Error
+hi def link dOctalError              Error
 hi def link dOperator                Operator
 hi def link dOpOverload              Operator
 hi def link dConstant                Constant
