@@ -1,10 +1,10 @@
-" Vim syntax file for the D programming language (version 0.79).
+" Vim syntax file for the D programming language (version 0.82).
 "
 " Language:     D
 " Maintainer:   Jason Mills<jmills@cs.mun.ca>
 " URL:           
-" Last Change:  2004 Feb 05 
-" Version:      0.5
+" Last Change:  2004 Mar 30
+" Version:      0.6
 "
 " Options:
 "   d_comment_strings - set to highlight strings and numbers in comments
@@ -153,7 +153,7 @@ syn match dOctal      display "\<0[0-7_]\+\(u\=l\=\|l\=u\=\)\>" contains=cOctalZ
 syn match dOctalZero  display contained "\<0"
 
 "floating point without the dot
-syn match dFloat      display "\<\d[0-9_]\+\(fi\=\|l\=i\)\>"
+syn match dFloat      display "\<\d[0-9_]*\(fi\=\|l\=i\)\>"
 "floating point number, with dot, optional exponent
 syn match dFloat      display "\<\d[0-9_]*\.[0-9_]*\(e[-+]\=[0-9_]\+\)\=[fl]\=i\="
 "floating point number, starting with a dot, optional exponent
