@@ -1,10 +1,10 @@
-" Vim syntax file for the D programming language (version 0.82).
+" Vim syntax file for the D programming language (version 0.90).
 "
 " Language:     D
 " Maintainer:   Jason Mills<jmills@cs.mun.ca>
 " URL:           
-" Last Change:  2004 Mar 30
-" Version:      0.6
+" Last Change:  2004 May 21
+" Version:      0.8
 "
 " Options:
 "   d_comment_strings - set to highlight strings and numbers in comments
@@ -26,11 +26,6 @@
 " Quit when a syntax file was already loaded
 if exists("b:current_syntax")
   finish
-endif
-
-" We define it here so that included files can test for it
-if !exists("main_syntax")
-  let main_syntax='d'
 endif
 
 " Keyword definitions
@@ -63,7 +58,7 @@ syn keyword dDebug           deprecated unittest
 syn keyword dExceptions      throw try catch finally 
 syn keyword dScopeDecl       public protected private export 
 syn keyword dStatement       version debug return with invariant body
-syn keyword dStatement       in out inout asm 
+syn keyword dStatement       in out inout asm mixin
 syn keyword dStatement       function delegate
 syn keyword dStorageClass    auto static override final const abstract volatile
 syn keyword dStorageClass    synchronized 
@@ -83,7 +78,6 @@ syn match dAssert "[^.]\s*\<assert\>"ms=s+1
 "hi def link dAsmBody dUnicode
 "hi def link dAsmStatement dStatement
 
-
 " Labels
 "
 " We contain dScopeDecl so public: private: etc. are not highlighted like labels
@@ -98,16 +92,16 @@ syn match   dCommentStar      contained "^\s*\*$"
 syn match   dCommentPlus      contained "^\s*+[^/]"me=e-1
 syn match   dCommentPlus      contained "^\s*+$"
 if exists("d_comment_strings") 
-   syn region  dBlockCommentString   contained  start=+"+ end=+"+ end=+\*/+me=s-1,he=s-1 contains=dCommentStar,dUnicode,dEscSequence,@Spell
-   syn region  dNestedCommentString  contained  start=+"+ end=+"+ end="+"me=s-1,he=s-1 contains=dCommentPlus,dUnicode,dEscSequence,@Spell
-   syn region  dLineCommentString    contained start=+"+  end=+$\|"+ contains=dUnicode,dEscSequence,@Spell
-   syn region  dBlockComment     start="/\*"  end="\*/" contains=dBlockCommentString,dTodo,@Spell
-   syn region  dNestedComment    start="/+"  end="+/" contains=dNestedComment,dNestedCommentString,dTodo,@Spell
-   syn match   dLineComment      "//.*" contains=dLineCommentString,dTodo,@Spell
+  syn region  dBlockCommentString   contained  start=+"+ end=+"+ end=+\*/+me=s-1,he=s-1 contains=dCommentStar,dUnicode,dEscSequence,@Spell
+  syn region  dNestedCommentString  contained  start=+"+ end=+"+ end="+"me=s-1,he=s-1 contains=dCommentPlus,dUnicode,dEscSequence,@Spell
+  syn region  dLineCommentString    contained start=+"+  end=+$\|"+ contains=dUnicode,dEscSequence,@Spell
+  syn region  dBlockComment     start="/\*"  end="\*/" contains=dBlockCommentString,dTodo,@Spell
+  syn region  dNestedComment    start="/+"  end="+/" contains=dNestedComment,dNestedCommentString,dTodo,@Spell
+  syn match   dLineComment      "//.*" contains=dLineCommentString,dTodo,@Spell
 else
-   syn region  dBlockComment     start="/\*"  end="\*/" contains=dBlockCommentString,dTodo,@Spell
-   syn region  dNestedComment    start="/+"  end="+/" contains=dNestedComment,dNestedCommentString,dTodo,@Spell
-   syn match   dLineComment      "//.*" contains=dLineCommentString,dTodo,@Spell
+  syn region  dBlockComment     start="/\*"  end="\*/" contains=dBlockCommentString,dTodo,@Spell
+  syn region  dNestedComment    start="/+"  end="+/" contains=dNestedComment,dNestedCommentString,dTodo,@Spell
+  syn match   dLineComment      "//.*" contains=dLineCommentString,dTodo,@Spell
 endif
 
 hi link dLineCommentString dBlockCommentString
@@ -132,7 +126,6 @@ syn match dCharacter	"'[^\\]'"
 " Unicode characters
 "
 syn match   dUnicode "\\u\d\{4\}"
-
 
 " String.
 "
@@ -221,11 +214,6 @@ hi def link dNestedComment           Comment
 hi def link dExternal                Include
 hi def link dPragma                  PreProc
 
-
 let b:current_syntax = "d"
-
-if main_syntax == 'd'
-  unlet main_syntax
-endif
 
 " vim: ts=2
