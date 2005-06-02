@@ -2,8 +2,8 @@
 "
 " Language:	D
 " Maintainer:	Jason Mills<jmills@cs.mun.ca>
-" Last Change:	2005 Mar 09
-" Version:	0.12
+" Last Change:  2005 Jun 02 	
+" Version:	0.13
 "
 " Options:
 "   d_comment_strings - set to highlight strings and numbers in comments
@@ -30,7 +30,7 @@ endif
 " Keyword definitions
 "
 syn keyword dExternal		import package module extern
-syn keyword dConditional	if else switch
+syn keyword dConditional	if else switch iftype
 syn keyword dBranch		goto break continue
 syn keyword dRepeat		while for do foreach
 syn keyword dBoolean		true false
