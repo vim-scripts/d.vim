@@ -1,9 +1,12 @@
-" Vim syntax file for the D programming language (version 0.116).
+" Vim syntax file for the D programming language (version 0.137).
 "
 " Language:	D
-" Maintainer:	Jason Mills<jmills@cs.mun.ca>
-" Last Change:  2005 Jun 02 	
-" Version:	0.13
+" Maintainer:	Jason Mills<jmills@cs.mun.ca> 
+" Last Change:	2005 Oct 29
+" Version:	0.14
+"
+" Please email me with bugs, comments, and suggestion. Put vim in the subject
+" to ensure the email will not be marked has spam.
 "
 " Options:
 "   d_comment_strings - set to highlight strings and numbers in comments
@@ -20,6 +23,8 @@
 "   statements.
 "
 "   - Mark contents of the asm statement body as special
+"
+"   - Highlight the string prefix r and and postfixes c,w,d
 "
 
 " Quit when a syntax file was already loaded
@@ -41,7 +46,7 @@ syn keyword dStructure		template interface class enum struct union
 syn keyword dOperator		new delete typeof typeid cast align is
 syn keyword dOperator		this super
 if exists("d_hl_operator_overload")
-  syn keyword dOpOverload	opNeg opCom opPostInc opPostDec opAdd opSub opSub_r
+  syn keyword dOpOverload	opNeg opCom opPostInc opPostDec opCast opAdd opSub opSub_r
   syn keyword dOpOverload	opMul opDiv opDiv_r opMod opMod_r opAnd opOr opXor
   syn keyword dOpOverload	opShl opShl_r opShr opShr_r opUShr opUShr_r opCat
   syn keyword dOpOverload	opCat_r opEquals opEquals opCmp opCmp opCmp opCmp
@@ -135,7 +140,7 @@ syn match dUnicode "\\u\d\{4\}"
 "
 syn region dString	start=+"+ end=+"+ contains=dEscSequence,@Spell
 syn region dRawString	start=+`+ skip=+\\`+ end=+`+ contains=@Spell
-syn region dRawString	start=+r"+ skip=+\\"+ end=+"+ contains=@Spell
+"syn region dRawString	start=+r"+ skip=+\\"+ end=+"+ contains=@Spell
 syn region dHexString	start=+x"+ skip=+\\"+ end=+"+
 
 " Numbers
@@ -219,5 +224,5 @@ hi def link dExternal		Include
 hi def link dPragma		PreProc
 
 let b:current_syntax = "d"
-
-" vim: ts=8
+   
+" vim: ts=8 noet
