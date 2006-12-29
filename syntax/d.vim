@@ -1,28 +1,33 @@
-" Vim syntax file for the D programming language (version 0.149).
+" Vim syntax file for the D programming language (version 0.178).
 "
 " Language:	D
-" Maintainer:	Jason Mills<jmills@cs.mun.ca> 
-"   When emailing me, please put the word vim somewhere in the subject
-"   to ensure the email does not get marked as spam.
-" Last Change:	2006 Mar 12
-" Version:	0.15
+" Maintainer:	Jason Mills<jmills@cs.mun.ca>
+" Last Change:	2006 Dec 28 	
+" Version:	0.16
+"
+" Please email me with bugs, comments, and suggestion. Put vim in the subject
+" to ensure the email will not be marked as spam.
 "
 " Options:
-"   d_comment_strings - set to highlight strings and numbers in comments
+"   d_comment_strings - Set to highlight strings and numbers in comments.
 "
-"   d_hl_operator_overload - set to highlight D's specially named functions
-"   that when overloaded implement unary and binary operators (e.g. cmp).
+"   d_hl_operator_overload - Set to highlight D's specially named functions
+"   that when overloaded implement unary and binary operators (e.g. opCmp).
 "
 " Todo:
 "   - Must determine a better method of sync'ing than simply setting minlines
-"   to a large number for /+ +/.
+"   to a large number for /+ +/ style comments.
 "
-"   - Several keywords (namely, in and out) are both storage class and
-"   statements, depending on their context. Must use some matching to figure
+"   - Several keywords (namely, in, out, inout) are both storage class and
+"   statements, depending on their context. I must use some matching to figure
 "   out which and highlight appropriately. For now I have made such keywords
-"   statements.
+"   statements. To be somewhat consistent, I also made lazy a statement, even
+"   though it's a storage class.
 "
 "   - Mark contents of the asm statement body as special
+"
+"   - Maybe highlight the 'exit', 'failure', and 'success' parts of the
+"   scope() statement.
 "
 
 " Quit when a syntax file was already loaded
@@ -33,9 +38,9 @@ endif
 " Keyword definitions
 "
 syn keyword dExternal		import package module extern
-syn keyword dConditional	if else switch iftype
+syn keyword dConditional	if else switch
 syn keyword dBranch		goto break continue
-syn keyword dRepeat		while for do foreach
+syn keyword dRepeat		while for do foreach foreach_reverse
 syn keyword dBoolean		true false
 syn keyword dConstant		null
 syn keyword dConstant		__FILE__ __LINE__ __DATE__ __TIME__ __TIMESTAMP__
@@ -48,11 +53,11 @@ if exists("d_hl_operator_overload")
   syn keyword dOpOverload	opMul opDiv opDiv_r opMod opMod_r opAnd opOr opXor
   syn keyword dOpOverload	opShl opShl_r opShr opShr_r opUShr opUShr_r opCat
   syn keyword dOpOverload	opCat_r opEquals opEquals opCmp opCmp opCmp opCmp
-  syn keyword dOpOverload	opAddAssign opSubAssign opMulAssign opDivAssign
+  syn keyword dOpOverload	opAssign opAddAssign opSubAssign opMulAssign opDivAssign
   syn keyword dOpOverload	opModAssign opAndAssign opOrAssign opXorAssign
   syn keyword dOpOverload	opShlAssign opShrAssign opUShrAssign opCatAssign
   syn keyword dOpOverload	opIndex opIndexAssign opCall opSlice opSliceAssign opPos
-  syn keyword dOpOverload	opAdd_r opMul_r opAnd_r opOr_r opXor_r 
+  syn keyword dOpOverload	opAdd_r opMul_r opAnd_r opOr_r opXor_r opIn opIn_r
 endif
 syn keyword dType		ushort int uint long ulong float
 syn keyword dType		void byte ubyte double bit char wchar ucent cent
@@ -62,8 +67,8 @@ syn keyword dDebug		deprecated unittest
 syn keyword dExceptions		throw try catch finally
 syn keyword dScopeDecl		public protected private export
 syn keyword dStatement		version debug return with invariant body scope
-syn keyword dStatement		in out inout asm mixin
-syn keyword dStatement		function delegate
+syn keyword dStatement		in out inout lazy
+syn keyword dStatement		function delegate asm mixin
 syn keyword dStorageClass	auto static override final const abstract volatile
 syn keyword dStorageClass	synchronized
 syn keyword dPragma		pragma
@@ -125,7 +130,7 @@ syn sync ccomment dBlockComment
 syn match dSpecialCharError contained "[^']"
 
 " Escape sequences (oct,specal char,hex,wchar, character entities \&xxx;)
-" These are not contained because they are considered string litterals
+" These are not contained because they are considered string literals.
 syn match dEscSequence	"\\\(\o\{1,3}\|[\"\\'\\?ntbrfva]\|u\x\{4}\|U\x\{8}\|x\x\x\)"
 syn match dEscSequence "\\&[^;& \t]\+;"
 syn match dCharacter	"'[^']*'" contains=dEscSequence,dSpecialCharError
@@ -142,6 +147,7 @@ syn match dUnicode "\\u\d\{4\}"
 syn region dString	start=+"+ end=+"[cwd]\=+ contains=dEscSequence,@Spell
 syn region dRawString	start=+`+ skip=+\\`+ end=+`[cwd]\=+ contains=@Spell
 syn region dRawString	start=+r"+ skip=+\\"+ end=+"[cwd]\=+ contains=@Spell
+syn match dRawString	+`\\`+
 syn region dHexString	start=+x"+ skip=+\\"+ end=+"[cwd]\=+ contains=@Spell
 
 " Numbers
